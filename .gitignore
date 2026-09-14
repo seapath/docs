@@ -75,4 +75,13 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# MkDocs build directory
+site/
+
+# Python virtual environments
+.venv/
+env/
+venv/
+ENV/
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows

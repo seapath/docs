@@ -129,7 +129,7 @@ apt autoremove --yes --purge
 
 ## Rollback
 
-As mentioned [[Duplicated] Image configuration](../_Duplicated_%20Image%20configuration.md), the root partition is on LVM disk. With this configuration, it can be saved by a LVM snapshot.
+As mentioned in [Build and configure a custom image](Advanced%20SEAPATH%20image%20installation/Build%20and%20configure%20a%20custom%20image.md), the root partition is on LVM disk. With this configuration, it can be saved by a LVM snapshot.
 
 ```bash
 lvcreate -L SIZE -s -n SNAPSHOT_NAME /dev/VOLUME_GROUP/DISK_NAME

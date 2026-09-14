@@ -1,0 +1,193 @@
+site_name: SEAPATH Documentation
+site_description: Open-source hypervisor for IEC 61850 Digital substations
+site_url: https://seapath.readthedocs.io/
+repo_url: https://github.com/seapath
+repo_name: seapath
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: en
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Overview: pages/Getting started.md
+      - Prerequisites:
+          - Overview: pages/Getting started/Prerequisites.md
+          - Hardware requirements: pages/Getting started/Prerequisites/Hardware requirements for SEAPATH machines.md
+          - Network requirements: pages/Getting started/Prerequisites/Network requirements.md
+          - External support machines: pages/Getting started/Prerequisites/External support machines.md
+      - Quick start:
+          - Overview: pages/Getting started/Quick start.md
+          - Wire and connect: pages/Getting started/Quick start/Wire and connect to the machines.md
+          - Install SEAPATH: pages/Getting started/Quick start/Install SEAPATH.md
+          - Configure the machines: pages/Getting started/Quick start/Configure the machines.md
+          - Deploy first virtual machine: pages/Getting started/Quick start/Deploy your first virtual machine.md
+      - SEAPATH-Debian or SEAPATH-Yocto: pages/Getting started/SEAPATH-Debian or SEAPATH-Yocto.md
+      - Standalone or cluster setup: pages/Getting started/Standalone or cluster setup.md
+  - SEAPATH fundamentals:
+      - Overview: pages/SEAPATH fundamentals.md
+      - High availability cluster:
+          - Overview: pages/SEAPATH fundamentals/High availability cluster.md
+          - High availability on SEAPATH: pages/SEAPATH fundamentals/High availability cluster/High availability cluster on SEAPATH.md
+          - Cluster configuration: pages/SEAPATH fundamentals/High availability cluster/Cluster configuration.md
+          - Cluster management: pages/SEAPATH fundamentals/High availability cluster/Cluster management.md
+          - Cluster fail-over: pages/SEAPATH fundamentals/High availability cluster/Cluster fail-over.md
+          - Cluster redundancy: pages/SEAPATH fundamentals/High availability cluster/Cluster redundancy.md
+          - Cluster maintenance: pages/SEAPATH fundamentals/High availability cluster/Cluster maintenance.md
+          - Create an extended bridge: pages/SEAPATH fundamentals/High availability cluster/Create an extended bridge over the cluster.md
+      - Hypervisor network:
+          - Overview: pages/SEAPATH fundamentals/Hypervisor network.md
+          - Network on SEAPATH: pages/SEAPATH fundamentals/Hypervisor network/Hypervisor Network on SEAPATH.md
+          - Configuration and deployment: pages/SEAPATH fundamentals/Hypervisor network/Network configuration and deployment.md
+          - Network management: pages/SEAPATH fundamentals/Hypervisor network/Network management.md
+          - Open vSwitch bridges: pages/SEAPATH fundamentals/Hypervisor network/Use Open vSwitch bridges on SEAPATH.md
+          - SR-IOV NIC: pages/SEAPATH fundamentals/Hypervisor network/Use SR-IOV NIC on SEAPATH.md
+          - Using Netplan: pages/SEAPATH fundamentals/Hypervisor network/Using netplan.md
+      - Real-time:
+          - Overview: pages/SEAPATH fundamentals/Real-time.md
+          - Real-time on SEAPATH: pages/SEAPATH fundamentals/Real-time/Real-time on SEAPATH.md
+          - Hardware configuration: pages/SEAPATH fundamentals/Real-time/Hardware configuration for real-time.md
+          - Real-time configuration: pages/SEAPATH fundamentals/Real-time/Real-time configuration.md
+          - Real-time management: pages/SEAPATH fundamentals/Real-time/Real-time management.md
+      - Time Synchronization:
+          - Overview: pages/SEAPATH fundamentals/Time Synchronization.md
+          - Time synchronization on SEAPATH: pages/SEAPATH fundamentals/Time Synchronization/Time synchronization on SEAPATH.md
+          - Configuration: pages/SEAPATH fundamentals/Time Synchronization/Time synchronization configuration.md
+          - Management: pages/SEAPATH fundamentals/Time Synchronization/Time synchonization management.md
+          - Virtual machine synchronization: pages/SEAPATH fundamentals/Time Synchronization/Virtual machine Time Synchronization.md
+          - Monitoring status & VM placement: pages/SEAPATH fundamentals/Time Synchronization/Monitoring Time Synchronization Status and Driving VM Placement.md
+          - Simulate a GrandMasterClock: pages/SEAPATH fundamentals/Time Synchronization/Simulate a GrandMasterClock (for testing).md
+      - Supervision:
+          - Overview: pages/SEAPATH fundamentals/Supervision.md
+          - Logs management: pages/SEAPATH fundamentals/Supervision/Logs management.md
+          - SNMP: pages/SEAPATH fundamentals/Supervision/SNMP.md
+          - Example of SNMP output: pages/SEAPATH fundamentals/Supervision/SNMP/Example of SNMP output.md
+          - Graphical interface: pages/SEAPATH fundamentals/Supervision/Using a graphical interface on Seapath.md
+      - Cybersecurity:
+          - Overview: pages/SEAPATH fundamentals/Cybersecurity.md
+          - ANSSI-BP-028 Compliance: pages/SEAPATH fundamentals/Cybersecurity/ANSSI-BP-028 Compliance.md
+  - Deploy your application:
+      - Overview: pages/Deploy your application on SEAPATH.md
+      - Deploying virtual machines:
+          - Overview: pages/Deploy your application on SEAPATH/Deploying virtual machines.md
+          - Virtual machines on SEAPATH: pages/Deploy your application on SEAPATH/Deploying virtual machines/Virtual machines on SEAPATH.md
+          - VM deployment: pages/Deploy your application on SEAPATH/Deploying virtual machines/Virtual machines deployment.md
+          - Connect VM to network: pages/Deploy your application on SEAPATH/Deploying virtual machines/Virtual machines deployment/Connect a virtual machine to the network.md
+          - Real-time VM configuration: pages/Deploy your application on SEAPATH/Deploying virtual machines/Virtual machines deployment/Real time virtual machine configuration.md
+          - Virtual machines management: pages/Deploy your application on SEAPATH/Deploying virtual machines/Virtual machines management.md
+          - The vm_manager tool: pages/Deploy your application on SEAPATH/Deploying virtual machines/The vm_manager tool.md
+          - Update a virtual machine: pages/Deploy your application on SEAPATH/Deploying virtual machines/Update a virtual machine.md
+          - Third party virtual machines:
+              - Overview: pages/Deploy your application on SEAPATH/Deploying virtual machines/Third party virtual machines.md
+              - ABB - SSC600 SW: pages/Deploy your application on SEAPATH/Deploying virtual machines/Third party virtual machines/ABB - SSC600 SW.md
+      - Deploying containers:
+          - Overview: pages/Deploy your application on SEAPATH/_Under development_ Deploying containers.md
+          - Containers on SEAPATH: pages/Deploy your application on SEAPATH/_Under development_ Deploying containers/Containers on SEAPATH.md
+          - Containers deployment: pages/Deploy your application on SEAPATH/_Under development_ Deploying containers/Containers deployment.md
+          - Containers management: pages/Deploy your application on SEAPATH/_Under development_ Deploying containers/Containers management.md
+      - Software provider guide: pages/Deploy your application on SEAPATH/Software provider - How to deploy your application.md
+  - Advanced configurations:
+      - Overview: pages/Advanced configurations.md
+      - Ansible usage: pages/Advanced configurations/Ansible usage.md
+      - Advanced image installation:
+          - Overview: pages/Advanced configurations/Advanced SEAPATH image installation.md
+          - Build and configure custom image: pages/Advanced configurations/Advanced SEAPATH image installation/Build and configure a custom image.md
+          - Flash machines manually: pages/Advanced configurations/Advanced SEAPATH image installation/Flash the machines manually.md
+      - Update a physical machine: pages/Advanced configurations/Update a physical machine.md
+  - Tests and CI:
+      - Overview: pages/Tests and CI.md
+      - What is tested: pages/Tests and CI/What is tested in SEAPATH.md
+      - Continuous integration: pages/Tests and CI/Continuous integration on SEAPATH.md
+      - IEC61850 latency tests: pages/Tests and CI/IEC61850 latency tests.md
+      - SEAPATH Yocto Test Bench: pages/Tests and CI/SEAPATH Yocto Test Bench.md
+      - SEAPATH toolbox:
+          - Overview: pages/Tests and CI/SEAPATH toolbox.md
+          - SEAPATH benchmark: pages/Tests and CI/SEAPATH toolbox/SEAPATH benchmark.md
+          - IEC61850 SV monitoring: pages/Tests and CI/SEAPATH toolbox/IEC61850 SV monitoring.md
+  - "Who is using SEAPATH ?":
+      - Overview: pages/Who is using SEAPATH _.md
+      - Initiatives in the World: pages/Who is using SEAPATH _/🌍 SEAPATH Initiatives in the World.md
+      - "RTE - R#SPACE Industrial Use Case": pages/Who is using SEAPATH _/RTE _ R#SPACE Industrial Use Case of SEAPATH.md
+      - "RTE - VIP'R R&D Project": pages/Who is using SEAPATH _/RTE _ VIP'R R&D Project - VIrtual PAC Rte.md
+      - "National Grid & GE Vernova": pages/Who is using SEAPATH _/National Grid & GE Vernova _ Deploying a Virtual IED on SEAPATH.md
+      - EcoPhi on SEAPATH: pages/Who is using SEAPATH _/EcoPhi on SEAPATH_ Virtualizing Substation Monitoring and Analytics for Grid Efficiency and Reliability.md
+  - Project management:
+      - Overview: pages/Project management.md
+      - Roadmap:
+          - Overview: pages/Project management/Roadmap.md
+          - Roadmap 2025: pages/Project management/Roadmap/Roadmap_2025.md
+      - Releases:
+          - Overview: pages/Project management/Releases.md
+          - 1.0.0: pages/Project management/Releases/1.0.0.md
+          - 1.1.0: pages/Project management/Releases/1.1.0.md
+          - 1.1.1: pages/Project management/Releases/1.1.1.md
+          - 1.2.0: pages/Project management/Releases/1.2.0.md
+      - Contribute to SEAPATH: pages/Project management/Contribute to SEAPATH.md
+      - Maintainers: pages/Project management/Maintainers.md
+  - About SEAPATH: pages/LF Energy SEAPATH.md
