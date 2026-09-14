@@ -71,4 +71,4 @@ For a virtual machine to run real-time critical applications on SEAPATH, it must
 - Run on isolated CPUs
 - Use real-time priorities
 
-All the information about configuring a virtual machine for real-time are available on [[Duplicated] Real-time virtual machine configuration](../../_Duplicated_%20Real-time%20virtual%20machine%20configuration.md).
+All the information about configuring a virtual machine for real-time are available on [Real time virtual machine configuration](../../Deploy%20your%20application%20on%20SEAPATH/Deploying%20virtual%20machines/Virtual%20machines%20deployment/Real%20time%20virtual%20machine%20configuration.md).
