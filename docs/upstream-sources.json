@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "name": "ansible",
+      "repository": "seapath/ansible",
+      "branch": "main",
+      "revision": "b58efa9d0f6db51cb15bf3fcdf87c1678a9f02b0",
+      "files": [
+        {
+          "path": "README-ansible-galaxy.md",
+          "output": "docs/_generated/upstream/ansible/galaxy-reference.md"
+        },
+        {
+          "path": "inventories/README.md",
+          "output": "docs/_generated/upstream/ansible/inventories.md"
+        },
+        {
+          "path": "plugins/modules/cluster_vm.py",
+          "output": "docs/_generated/upstream/ansible/cluster-vm-module.md",
+          "extract": "ansible_module_docs"
+        }
+      ],
+      "discover": [
+        {
+          "pattern": "roles/**/README.md",
+          "output_dir": "docs/_generated/upstream/ansible/roles"
+        }
+      ]
+    }
+  ]
+}
