@@ -32,7 +32,7 @@ mkdocs build
 
 The generated site is written to `site/`.
 
-The sync step needs network access to GitHub. It fetches the Ansible Galaxy overview, inventory guide, module reference, and every role README from revisions pinned in `docs/upstream-sources.json`. To update those pins to the current upstream `main` branches and refresh the generated pages, run:
+The sync step needs network access to GitHub. It fetches the Ansible Galaxy overview, inventory guide, module reference, and every role README, plus the complete Sphinx-built vm_manager documentation, from revisions pinned in `docs/upstream-sources.json`. To update those pins to the current upstream `main` branches and refresh the generated pages, run:
 
 ```bash
 python scripts/sync_upstream_docs.py --refresh-revisions

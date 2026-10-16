@@ -1,6 +1,13 @@
 {
   "sources": [
     {
+      "name": "vm_manager",
+      "repository": "seapath/vm_manager",
+      "branch": "main",
+      "revision": "8f7d84fdea50e6892dfb39b88a49a603bfb2a0a8",
+      "files": []
+    },
+    {
       "name": "ansible",
       "repository": "seapath/ansible",
       "branch": "main",
