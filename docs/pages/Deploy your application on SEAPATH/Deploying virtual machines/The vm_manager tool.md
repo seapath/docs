@@ -10,9 +10,27 @@ Deploying a virtual machine on a SEAPATH cluster requires to handle many element
 > [!IMPORTANT]
 > vm\_manager can also be used in standalone mode. In that case, it is basically a wrapper around Libvirt
 
-This section describes the VM architecture from a high-level point of view. It also embed example playbooks from the `cluster_vm` ansible module, which is simply a wrapper around vm\_manager. Full documentation of `cluster_vm` is available on <https://galaxy.ansible.com/ui/repo/published/seapath/ansible/content/module/cluster_vm/>
+This section describes the VM architecture from a high-level point of view. It also embeds example playbooks from the `cluster_vm` ansible module, which is simply a wrapper around vm\_manager. Full documentation of `cluster_vm` is available on <https://galaxy.ansible.com/ui/repo/published/seapath/ansible/content/module/cluster_vm/>
 
 You will also find information on how to troubleshoot problems related to VM management on the last section of the page.
+
+## API documentation
+
+You can use Sphinx to generate the API and CLI documentation of vm\_manager.
+
+To do this you need to clone the [vm\_manager](https://github.com/seapath/vm_manager) repository on GitHub. And run the following commands:
+
+```bash
+# Install the dependencies
+pip install .[docs]
+# Generate the documentation into docs/_build/html
+sphinx-build -b html docs docs/_build/html
+# Alternative with cqfd
+cqfd init
+cqfd -b docs
+```
+
+Note that this is only available on main or the future 2.0 version. It is not available on 1.2.
 
 ## VM status
 

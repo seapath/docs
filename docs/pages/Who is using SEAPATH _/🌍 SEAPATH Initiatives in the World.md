@@ -103,6 +103,16 @@ SCLE is evaluating SEAPATH in its lab.
 
 📧 Contact : [julien.tournier@scle.fr](mailto:julien.tournier@scle.fr)
 
+## CONDIS
+
+XPG, CONDIS's modular system for substation gateway/RTU and HMI applications, can be deployed on SEAPATH.
+
+CONDIS also uses SEAPATH in its own laboratory.
+
+<https://condis.ch/products-and-solutions/grid-control/xpg-gateway-rtu-and-hmi/>
+
+📧 Contact : [pfragniere@condis.ch](mailto:pfragniere@condis.ch) & [adegottrau@condis.ch](mailto:adegottrau@condis.ch)
+
 # 🖥️ Other Vendors
 
 ## Welotec

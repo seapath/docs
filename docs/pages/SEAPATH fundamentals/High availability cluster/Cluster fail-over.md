@@ -20,17 +20,15 @@ All active connections will be closed and resource will be available again until
 > [!NOTE]
 > The migration time is mainly bottle-necked by the the speed rate of the network cluster.
 
-## Hot migration
+## Live migration (also called hot-migration)
 
 The resource is migrated from a node to another without needing to stop it. The live state of the resource is kept and a minimal downtime occurs (a few seconds). All active connections are kept alive.
 
 This type of migration needs a precise and reliable time synchronization between the host using at least NTP protocol. It is also recommended that the migrated resource (specially VMs) is time synchronized, to avoid time gap.
 
-> [!WARNING]
-> Hot migration it is not compatible when the resource has hardware dependency to the node, specially when using SR-IOV or PCI-Passthrough.
+Live migration might not be compatible if the resource has hardware dependencies to the node. When using PCI-Passthrough, be sure that the PCI address of the shared device is the same between the all the nodes where resource can be deployed. SR-IOV can also be used to address hardware dependencies.
 
-> [!WARNING]
-> If the resource has pinned CPUs configured using host pass-through, the same CPU cores must be available on the host where the resource is migrated.
+If the resource has pinned CPUs configured using host pass-through, the same CPU cores must be available on the host where the resource is migrated.
 
 # Reboot the resource on the same node
 

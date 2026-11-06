@@ -1,21 +1,18 @@
 
-[Deploy your application on SEAPATH](../../Deploy%20your%20application%20on%20SEAPATH.md) > [[Under development] Deploying containers](../_Under%20development_%20Deploying%20containers.md)
+[Deploy your application on SEAPATH](../../Deploy%20your%20application%20on%20SEAPATH.md) > [Deploying containers](../Deploying%20containers.md)
 
 # Containers deployment
 
-> [!WARNING]
-> The full container support on SEAPATH is still in development and not yet functional in any of the official SEAPATH releases.
->
-> This section is a forecast of what will be developed in the future, and is still under discussions.
->
-> If you wish to deploy a container on an official SEAPATH version, you can simply use docker, but without any high availability cluster support
+Container support is fully functional on SEAPATH 2.0 release.
+
+However, the setup requires many manual configuration and is not correctly streamlined in Ansible for now
 
 ### Overview
 
 Container high availability on SEAPATH is deployed entirely through **Ansible roles and inventory variables**, reusing the existing SEAPATH stack.  
 The workflow consists of:
 
-1. Deploying and mounting **CephFS**
+1. Creating **Ceph RBD images which will be used for container volumes**
 2. Uploading **Quadlet** unit files (for containers and networks) to all candidate nodes
 3. Registering the **Pacemaker primitives** for HA orchestration
 
@@ -23,36 +20,7 @@ This approach avoids any custom container orchestration layer — everything is 
 
 ---
 
-### Step 1 — Deploy CephFS
-
-The `deploy_cephfs` role:
-
-- Deploys the CephFS service on the cluster
-- Creates the required directories for container volumes and configuration
-- Mounts CephFS on each node (e.g. at `/mnt/cephfs`)
-
-You can then prepares the mount for use by Quadlet containers (e.g. correct permissions and SELinux labels)
-
-Typical directories:
-
-```java
-/mnt/cephfs/
- ├── podman-volumes/
-     ├── nginx2-html/
-     └── nginx2-logs/
-```
-
-This ensures that container persistent volumes are **shared across all nodes**, enabling seamless failover.
-
-You don’t even have to prepare those folders, as we will see in the example below, you can rely on a systemd `ExecStartPre`task to do it:
-
-```java
-ExecStartPre=mkdir -p /mnt/cephfs/podman-volumes/nginx2-html /mnt/cephfs/podman-volumes/nginx2-logs
-```
-
----
-
-### Step 2 — Upload Quadlet Files
+### Step 1 — Upload Quadlet Files
 
 Quadlets define the container and its networking declaratively through `.container`, `.network`, `.volume` (if needed) unit files placed in `/etc/containers/systemd/`.  
 These units are automatically picked up by systemd and exposed as standard services.
@@ -86,30 +54,41 @@ This defines the macvlan network that the container will attach to, ensuring it 
 ```java
 # /etc/containers/systemd/nginxquadlet.container
 [Unit]
-Description=Nginx container with Ceph volumes
+Description=Nginx container with Ceph RBD volume
 After=network-online.target quadlet-macvlan-network.service
 Wants=quadlet-macvlan-network.service
 Requires=quadlet-macvlan-network.service
 
 [Container]
-Image=docker.io/library/nginx:alpine
-# Volumes with :Z SELinux relabel
-Volume=/mnt/cephfs/podman-volumes/nginx2-html:/usr/share/nginx/html:Z
-Volume=/mnt/cephfs/podman-volumes/nginx2-logs:/var/log/nginx:Z
-# Attach to macvlan network
+Image=docker.io/library/nginx:latest
+Volume=/mnt/rbd/nginxquadlet/html:/usr/share/nginx/html:Z
+Volume=/mnt/rbd/nginxquadlet/logs:/var/log/nginx:Z
 Network=quadlet-macvlan
-IP=10.132.170.202
-# Static IP and MAC
-PodmanArgs=--mac-address 02:42:ac:1f:0f:03
-# Simple demo workload: tail log file into index.html and run nginx
+IP=10.132.159.202
+PodmanArgs=--mac-address 02:42:ac:11:0f:03
 Exec=sh -c "while true; do tail -n 10 /var/log/nginx/access.log > /usr/share/nginx/html/index.html; sleep 2; done & exec nginx -g 'daemon off;'"
 
 [Service]
 CPUSchedulingPolicy=fifo
 CPUSchedulingPriority=4
-Restart=always
-ExecStartPre=mkdir -p /mnt/cephfs/podman-volumes/nginx2-html /mnt/cephfs/podman-volumes/nginx2-logs
-ExecStartPost=/bin/sh -c 'sleep 2; nsenter -t $(podman inspect -f "{{.State.Pid}}" systemd-nginxquadlet) -n arping -c 3 -A -I eth0 10.132.170.202; exit 0'
+CPUAffinity=0 1
+Restart=on-failure
+# Cleanup in case of dirty restart
+ExecStartPre=-/bin/sh -c 'findmnt -rn -S /dev/rbd?* -o TARGET | grep -x /mnt/rbd/nginxquadlet | xargs -r umount'
+ExecStartPre=-/bin/sh -c 'rbd device list | awk "/nginxquadlet/ {print $$NF}" | xargs -r -n1 rbd unmap'
+# Create RBD image if it does not exist
+ExecStartPre=/bin/sh -c 'rbd info rbd/nginxquadlet >/dev/null 2>&1 || rbd create rbd/nginxquadlet --size 1G --image-feature layering'
+# Map, create FS if needed, mount, create subdirs if needed
+ExecStartPre=rbd map rbd/nginxquadlet
+ExecStartPre=mkdir -p /mnt/rbd/nginxquadlet
+ExecStartPre=/bin/sh -c 'blkid /dev/rbd/rbd/nginxquadlet >/dev/null 2>&1 || mkfs.ext4 /dev/rbd/rbd/nginxquadlet'
+ExecStartPre=mount /dev/rbd/rbd/nginxquadlet /mnt/rbd/nginxquadlet
+ExecStartPre=mkdir -p /mnt/rbd/nginxquadlet/html /mnt/rbd/nginxquadlet/logs
+# Gratuitious ARP
+ExecStartPost=/bin/sh -c 'sleep 2; nsenter -t $(podman inspect -f "{{.State.Pid}}" systemd-nginxquadlet) -n arping -c 3 -A -I eth0 10.132.159.202; exit 0'
+# Cleanup on stop
+ExecStopPost=-/bin/sh -c 'findmnt -rn -S /dev/rbd?* -o TARGET | grep -x /mnt/rbd/nginxquadlet | xargs -r umount'
+ExecStopPost=-/bin/sh -c 'rbd device list | awk "/nginxquadlet/ {print \$NF}" | xargs -r -n1 rbd unmap'
 ```
 
 This unit definition demonstrates how **a single Quadlet file** can combine networking, storage, resource control, and failover behavior into a clean and predictable deployment model. It’s a minimal yet powerful example of what SEAPATH aims to provide.
@@ -154,15 +133,27 @@ Failover is almost seamless — typically sub-second or just a few seconds of se
 
 ---
 
-#### 4. **Persistent Storage with CephFS**
+#### 4. **Persistent Storage with Ceph RBD images**
 
-- The container mounts its content and logs directly from CephFS:
+- The container creates and format the rbd image if needed, then mount them locally on the node:
 
   ```java
-  Volume=/mnt/cephfs/podman-volumes/nginx2-html:/usr/share/nginx/html:Z
-  Volume=/mnt/cephfs/podman-volumes/nginx2-logs:/var/log/nginx:Z
+  # Create RBD image if it does not exist
+  ExecStartPre=/bin/sh -c 'rbd info rbd/nginxquadlet >/dev/null 2>&1 || rbd create rbd/nginxquadlet --size 1G --image-feature layering'
+  # Map, create FS if needed, mount, create subdirs if needed
+  ExecStartPre=rbd map rbd/nginxquadlet
+  ExecStartPre=mkdir -p /mnt/rbd/nginxquadlet
+  ExecStartPre=/bin/sh -c 'blkid /dev/rbd/rbd/nginxquadlet >/dev/null 2>&1 || mkfs.ext4 /dev/rbd/rbd/nginxquadlet'
+  ExecStartPre=mount /dev/rbd/rbd/nginxquadlet /mnt/rbd/nginxquadlet
+  ExecStartPre=mkdir -p /mnt/rbd/nginxquadlet/html /mnt/rbd/nginxquadlet/logs
   ```
-- ince CephFS is **mounted on all cluster nodes**, persistent data and configuration follow the container seamlessly.
+- Then it mounts its content and logs directly from Ceph RBD:
+
+  ```java
+  Volume=/mnt/rbd/nginxquadlet/nginx2-html:/usr/share/nginx/html:Z
+  Volume=/mnt/rbd/nginxquadlet/nginx2-logs:/var/log/nginx:Z
+  ```
+- Since the rbd images are **mounted on all cluster nodes**, persistent data and configuration follow the container seamlessly.
 - On failover, the new node accesses the same shared volume with no extra sync steps.
 - SELinux relabeling (`:Z`) ensures secure and correct container access.
 
@@ -219,12 +210,12 @@ This gives administrators **fine-grained control** over service startup sequenci
 #### Ansible inventory example to upload these files
 
 ```java
-upload_files:
+upload_extra_files_upload_files:
   - { src: '../inventories_private/quadlet-macvlan.network', dest: '/etc/containers/systemd/quadlet-macvlan.network', mode: "0644" }
   - { src: '../inventories_private/nginxquadlet.container', dest: '/etc/containers/systemd/nginxquadlet.container', mode: "0644" }
 ```
 
-These files are deployed automatically by the `debian_prerequisites` playbook.  
+They will be deployed automatically by the `debian_prerequisites` playbook.  
 Once uploaded, systemd automatically exposes them as `quadlet-macvlan-network.service` and `nginxquadlet.service`.
 
 ---
@@ -265,7 +256,7 @@ Once deployed:
    - Brings up the macvlan interface with the same IP and MAC,
    - Gratuitous ARPs update the network’s forwarding tables.
 3. The container continues serving traffic transparently.  
-   CephFS provides consistent access to volumes and configuration files.
+   Ceph rbd provides consistent access to volumes and configuration files.
 
 ---
 
@@ -273,7 +264,6 @@ Once deployed:
 
 The entire workflow can be integrated into a **single Ansible playbook** that:
 
-- Runs `deploy_cephfs` to provision storage,
 - Uploads Quadlet unit files with `upload_files`,
 - Pre-pulls container images on all candidate nodes,
 - Configures Pacemaker primitives using `extra_crm_cmd_to_run`,
@@ -285,4 +275,4 @@ This makes container HA deployment on SEAPATH fully **repeatable**, **idempotent
 
 ✅ **Result:**  
 A simple, fully automated HA container deployment on SEAPATH — using standard tools:  
-**CephFS + Podman Quadlets + Pacemaker + Ansible.**
+**Ceph RBD + Podman Quadlets + Pacemaker + Ansible.**

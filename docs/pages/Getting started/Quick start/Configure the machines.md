@@ -15,7 +15,7 @@ This section assumes you have an administration machine setup. See [External sup
 Clone the SEAPATH Ansible repository.
 
 ```java
-git clone -b v1.2.0 https://github.com/seapath/ansible.git
+git clone -b v2.0.1 https://github.com/seapath/ansible.git
 cd ansible
 ```
 
@@ -61,6 +61,12 @@ Additional variables only used in cluster mode
 > All cluster IPs and networks can be let as default. A default IP subnet 192.168.55.0/24 will be created, but it is only used between the cluster machines. It will not impact your external network.
 
 ## Launch the configuration
+
+Gather dependencies
+
+```java
+cqfd init && cqfd -b prepare
+```
 
 Launch the configuration of your SEAPATH infrastructure using
 

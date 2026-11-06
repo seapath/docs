@@ -21,6 +21,7 @@ ovs_bridges:
       - name: VM1.0 # Tap interface to connect a future VM to the bridge
         type: tap
       - name: ovsbr_ext # External physical interface to connect to the bridge
+        type: system
         interface: eno1
 ```
 

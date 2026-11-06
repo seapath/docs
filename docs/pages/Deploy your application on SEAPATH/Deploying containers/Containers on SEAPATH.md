@@ -1,14 +1,11 @@
 
-[Deploy your application on SEAPATH](../../Deploy%20your%20application%20on%20SEAPATH.md) > [[Under development] Deploying containers](../_Under%20development_%20Deploying%20containers.md)
+[Deploy your application on SEAPATH](../../Deploy%20your%20application%20on%20SEAPATH.md) > [Deploying containers](../Deploying%20containers.md)
 
 # Containers on SEAPATH
 
-> [!WARNING]
-> The full container support on SEAPATH is still in development and not yet functional in any of the official SEAPATH releases.
->
-> This section is a forecast of what will be developed in the future, and is still under discussions.
->
-> If you wish to deploy a container on an official SEAPATH version, you can simply use docker, but without any high availability cluster support
+Container support is fully functional on SEAPATH 2.0 release.
+
+However, the setup requires many manual configuration and is not correctly streamlined in Ansible for now
 
 ### Goals
 
@@ -25,7 +22,7 @@
   - Pacemaker / Corosync for HA
   - Ceph (managed with cephadm)
   - Open vSwitch / standard Linux networking
-- CephFS can be easily deployed to provide a shared POSIX filesystem across cluster nodes.
+- Ceph can provide distributed and resilient storage for volumes across cluster nodes (via the use of RBD, exactly like for virtual machines).
 - Cephadm uses Podman by default, making Podman the natural container runtime.
 
 ### Key Design Choices and Rationale
@@ -61,10 +58,10 @@ In short, Quadlets bring **a more robust, feature-rich, and maintainable integra
 - Pacemaker already provides host-level HA and failover.
 - It starts and stops the Quadlet-defined container stack on the active host and ensures the required network failover steps are executed.
 
-#### CephFS for configuration and persistent data
+#### Ceph RBD for configuration and persistent data
 
-- CephFS stores persistent volume data (mounted into containers at runtime).
-- Container image layers remain local (overlayfs on CephFS is not supported).
+- Ceph stores persistent volume data in rbd images (mapped and mounted into containers at runtime).
+- Container image layers remain local to the nodes
 - Images can be pre-pulled or updated on each node to ensure fast failover.
 
 #### Macvlan network with migratable IP & MAC
@@ -75,7 +72,7 @@ In short, Quadlets bring **a more robust, feature-rich, and maintainable integra
 
 #### Automated Deployment with Ansible
 
-- The entire process — creating Quadlet definitions, mounting CephFS, configuring network failover, and registering Pacemaker primitives — is automated through Ansible for repeatable, cluster-wide deployment (see [Containers deployment](Containers%20deployment.md))
+- The entire process — creating Quadlet definitions, mapping and mounting Ceph rbd images, configuring network failover, and registering Pacemaker primitives — is automated through Ansible for repeatable, cluster-wide deployment (see [this page](Containers%20deployment.md))
 
 ### Why not Kubernetes?
 

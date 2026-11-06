@@ -1,29 +1,23 @@
 
-[Deploy your application on SEAPATH](../../Deploy%20your%20application%20on%20SEAPATH.md) > [[Under development] Deploying containers](../_Under%20development_%20Deploying%20containers.md)
+[Deploy your application on SEAPATH](../../Deploy%20your%20application%20on%20SEAPATH.md) > [Deploying containers](../Deploying%20containers.md)
 
 # Containers management
 
-> [!WARNING]
-> The full container support on SEAPATH is still in development and not yet functional in any of the official SEAPATH releases.
->
-> This section is a forecast of what will be developed in the future, and is still under discussions.
->
-> If you wish to deploy a container on an official SEAPATH version, you can simply use docker, but without any high availability cluster support
+Container support is fully functional on SEAPATH 2.0 release.
+
+However, the setup requires many manual configuration and is not correctly streamlined in Ansible for now
 
 ### Logical Components
 
 - **Compute nodes** (N nodes running Pacemaker/Corosync). Each node provides:
 
   - Podman installed and configured
-  - CephFS client (kernel mount or systemd mount unit)
+  - Ceph rbd client (kernel mount or systemd mount unit)
   - OVS / host networking and a physical uplink (macvlan parent interface)
-- **Ceph cluster** (MON, MGR, MDS, OSDs) managed by cephadm.
+- **Ceph cluster** (MON, MGR, OSDs) managed by cephadm.
 
-  - CephFS is exported and accessible to all cluster nodes.
+  - Ceph rbd is accessible to all cluster nodes.
 - **Pacemaker/Corosync cluster** providing HA resource primitives, constraints, and failover orchestration.
-- **Shared location on CephFS** (default: `/mnt/cephfs`):
-
-  - Holds directories containing Quadlet volume data.
 - **Pacemaker primitive**:
 
   - A simple systemd-based resource (using `systemd` resource agent) that starts, stops, and migrates the Quadlet-defined container stack between hosts.
@@ -35,13 +29,10 @@
 - **Quadlet unit definitions :**  
   → Stored on each node, in`/etc/containers/systemd`
 - **Quadlets persistent volumes and environment files**  
-  → stored on CephFS and mounted read/write on all compute nodes.
+  → stored on Ceph rbd and mounted read/write on all compute nodes.
 - **Container images and Podman storage**  
   → stored locally on each node (e.g. `/var/lib/containers/storage`).  
   → during start, images can already be present, or an automated task can ensures they are pulled in advance (e.g. via Ansible).
-
-  *Why local?*  
-  Overlay storage used by Podman is not compatible with CephFS as a backing store. Images are replicated or pre-seeded on candidate nodes.
 
 ---
 
@@ -64,20 +55,16 @@ This ensures transparent service continuity after failover.
 
 A typical Pacemaker configuration stacks a few resources:
 
-1. **Filesystem resource (optional)**
-
-   - Manages or ensures the CephFS mountpoint is available on the node.
-   - If mounts are handled by systemd or Ansible, location constraints can prevent the container resource from running on nodes without the mount.
-2. **Systemd service resource (Quadlet)**
+1. **Systemd service resource (Quadlet)**
 
    - Uses the standard `systemd` agent.
    - Points to the Quadlet-defined unit (e.g. `my-stack.container`).
    - Parameters (IP, MAC, etc.) are encoded in the Quadlet definition itself, not in Pacemaker.
-3. **Ordering and colocation constraints**
+2. **Ordering and colocation constraints**
 
    - Filesystem mount must be active before the container unit starts.
    - If a separate IP resource is used (optional), colocate and order it with the Quadlet unit.
-4. **Meta options**
+3. **Meta options**
 
    - Resource stickiness, migration threshold, failure timeout, and target role follow SEAPATH policy.
 
@@ -92,7 +79,7 @@ Pacemaker doesn’t implement container logic itself — it simply starts and st
   - Pacemaker calls `systemctl start my-stack.service`.
   - systemd/Podman ensures:
 
-    - the CephFS-mounted directory with Quadlet files is accessible,
+    - the CephRBD-mounted directory with Quadlet files is accessible,
     - the macvlan network is configured (via `.network` unit),
     - the container is started from the pre-pulled image,
     - IP and MAC are assigned, and gratuitous ARPs are sent.
@@ -112,7 +99,7 @@ Pacemaker doesn’t implement container logic itself — it simply starts and st
     - selects a new node,
     - starts the same systemd unit there,
     - recreates the macvlan IP/MAC,
-    - CephFS-mounted volumes provide access to persistent data,
+    - CephRBD-mounted volumes provide access to persistent data,
     - network reconvergence is handled via gratuitous ARPs.
 
 ---
@@ -123,19 +110,19 @@ Pacemaker doesn’t implement container logic itself — it simply starts and st
 2. Pacemaker selects another node and starts the container’s systemd unit.
 3. The target node:
 
-   - mounts CephFS if not already mounted,
+   - mounts Ceph RBD if not already mounted,
    - ensures macvlan network is configured,
    - starts the container from its local image,
    - brings up the configured IP/MAC and sends gratuitous ARPs.
 4. Clients continue to reach the same IP/MAC.  
-   Persistent data remains available through CephFS.
+   Persistent data remains available through Ceph RBD.
 
 ---
 
 ### Operational Caveats & Gotchas
 
 - **Local Podman storage**:  
-  Container images must be local; overlay storage on CephFS is not supported. Pre-pull images to minimize failover time.
+  Container images must be local. Pre-pull images to minimize failover time.
 - **Macvlan specifics**:
 
   - Containers are isolated from the host network namespace.
@@ -144,7 +131,7 @@ Pacemaker doesn’t implement container logic itself — it simply starts and st
 - **Fencing**:  
   Proper fencing is required to avoid concurrent access to shared storage during failover.
 - **SELinux & mounts**:  
-  Ensure CephFS mounts are labeled correctly for container access (`:z` / `:Z` mount options or proper fs labels).
+  Ensure Ceph RBD mounts are labeled correctly for container access (`:z` / `:Z` mount options or proper fs labels).
 - **Root privileges**:  
   Creating macvlan interfaces requires root. Pacemaker runs the systemd service as root.
 - **Startup time**:  

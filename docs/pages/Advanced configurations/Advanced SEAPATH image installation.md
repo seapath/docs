@@ -5,7 +5,7 @@
 
 This page explains how to customize the SEAPATH image installation.
 
-It describes how to customize the installer to embed custom images and SSH keys. Custom images can be built by following [Build and configure a custom image](Advanced%20SEAPATH%20image%20installation/Build%20and%20configure%20a%20custom%20image.md)
+It describes how to embed custom images and SSH keys. Custom images can be built by following [Build and configure a custom image](Advanced%20SEAPATH%20image%20installation/Build%20and%20configure%20a%20custom%20image.md)
 
 > [!NOTE]
 > A section is also dedicated to the manual installation of images [Flash the machines manually](Advanced%20SEAPATH%20image%20installation/Flash%20the%20machines%20manually.md). This method allows, among other things, a non-interactive installation.  
@@ -13,9 +13,11 @@ It describes how to customize the installer to embed custom images and SSH keys.
 
 # Customize the installer
 
-This section describe how to customize or even rebuild the seapath-installer. It assumes you have flashed the installer on a USB key. See [Install SEAPATH](../Getting%20started/Quick%20start/Install%20SEAPATH.md) for more information
+You can get an empty version of the SEAPATH installer on the [installer release page](https://github.com/seapath/seapath-live-installer/releases). This file contains only the installer and no images or SSH keys.
 
-The installer can be customize to modify the installed artifacts installed on the target machine. To do so, plug the flashed installer USB key, on a computer and mount it. The directory `DATA` contains the installer artifacts.
+Flash this file to a USB stick, either with a graphical tool like Balena Etcher or with a standard `dd` command.
+
+The installer can now be customized to add custom artifacts to be installed on the target machine. To do so, mount the USB stick on your computer. The directory `DATA` should contain the installer artifacts.
 
 ## SEAPATH images
 

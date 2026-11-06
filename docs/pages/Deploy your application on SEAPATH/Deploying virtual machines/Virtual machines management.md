@@ -14,25 +14,25 @@ All these commands can be executed on any SEAPATH machine of the cluster (if usi
 ### List the VMs deployed on the cluster (or the standalone machine)
 
 ```java
-vm-mgr list
+sudo vm-mgr list
 ```
 
 ### Get the state of a VM
 
 ```java
-vm-mgr status -n <vm_name>
+sudo vm-mgr status -n <vm_name>
 ```
 
 ### Get the Libvirt XML file of the VM
 
 ```java
-vm-mgr get_metadata --metadata_name xml -n <vm_name>
+sudo vm-mgr get_metadata --metadata_name xml -n <vm_name>
 ```
 
 ### Access the console of the VM
 
 ```java
-vm-mgr console --ssh-user <livemigration_user> <vm_name>
+sudo vm-mgr console <vm_name>
 ```
 
 ### Manipulate VMs with a REST API
@@ -75,6 +75,14 @@ crm resource move <vm_name> <hypervisor_name>
 
 The logs of a VM are only available **on the hypervisor that schedules the VM** in `/var/log/libvirt/qemu/<vm_name>.log`
 
+Additional logs are available on journald `journalctl -u libvirtd`
+
+Logs related to VM migration can also be found in `/var/log/pacemaker/pacemaker.log`
+
 ## Modify the XML of a VM
 
 To modify the XML of the VM we recommend going through a VM update process. Read [Update a virtual machine](Update%20a%20virtual%20machine.md)
+
+## Time synchronization on virtual machines
+
+Refer to [Virtual machine Time Synchronization](../../SEAPATH%20fundamentals/Time%20Synchronization/Virtual%20machine%20Time%20Synchronization.md)

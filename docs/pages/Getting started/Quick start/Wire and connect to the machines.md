@@ -56,7 +56,11 @@ ssh admin@<hypervisor_IP>
 ```
 
 > [!IMPORTANT]
-> If you are using SEAPATH pre-build images, included in the installer, you must download the associated [SSH private key file](https://github.com/seapath/yocto-bsp/releases/download/v1.1.0/seapath-v1.1.0-artifacts-key) from the release and put it in your `~/.ssh/` folder.
+> If you are using SEAPATH pre-build images, included in the installer, you must download the associated [SSH private key file](https://releases.seapath.org/builds/v2.0.0/seapath-v2.0.0-artifacts-key) from the release and put it in your `~/.ssh/` folder.
+>
+> The ssh private key file must have the 0600 mode for security reason. Run the following command to ensure that:
+>
+> `chmod 0600 ~/.ssh/seapath-*-key`
 
 > [!NOTE]
 > If you are in a cluster setup, repeat this process on each hypervisor. The IP addresses must be different but within the same network, ex :
