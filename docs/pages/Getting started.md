@@ -10,6 +10,7 @@ This section lists what you need to know before starting your SEAPATH journey, a
   - [Network requirements](Getting%20started/Prerequisites/Network%20requirements.md)
   - [External support machines](Getting%20started/Prerequisites/External%20support%20machines.md)
 - [SEAPATH-Debian or SEAPATH-Yocto](Getting%20started/SEAPATH-Debian%20or%20SEAPATH-Yocto.md)
+- [SEAPATH regarding others hypervisor solutions](Getting%20started/SEAPATH%20regarding%20others%20hypervisor%20solutions.md)
 - [Standalone or cluster setup](Getting%20started/Standalone%20or%20cluster%20setup.md)
 - [Quick start](Getting%20started/Quick%20start.md)
   - [Install SEAPATH](Getting%20started/Quick%20start/Install%20SEAPATH.md)

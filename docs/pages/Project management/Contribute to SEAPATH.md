@@ -29,7 +29,7 @@ There are many ways to contribute:
 ### Promoting the project
 
 - Give talks on your experience on SEAPATH
-- Add your page to the [Who is using SEAPATH ?](../Who%20is%20using%20SEAPATH%20_.md) wiki page
+- Add your page to the [Use cases on SEAPATH](../Who%20is%20using%20SEAPATH%20_.md) wiki page
 
 ### Reporting problems
 
@@ -40,7 +40,7 @@ There are many ways to contribute:
 ### Improving the documentation
 
 - Write new wiki pages or improve the existing ones. Anyone can modify this wiki. You will need a Linux Foundation ID (created at <https://identity.linuxfoundation.org/> ) to contribute. In the upper right of this page, select Log In to contribute.
-- Ask questions on the [mailing list](https://lists.lfenergy.org/g/SEAPATH) or on the [Slack channel](https://lfenergy.slack.com/archives/C01EH8ZLJTC) when documentation is not clear or non-existent
+- Ask questions on the [mailing list](https://lists.lfenergy.org/g/SEAPATH) or on the [Slack channel](https://slack.lfenergy.org) when documentation is not clear or non-existent
 - Add confluence comments on wiki pages
 - Write troubleshooting guides about the problem you encountered
 

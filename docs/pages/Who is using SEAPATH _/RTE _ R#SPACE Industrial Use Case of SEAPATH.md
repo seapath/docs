@@ -51,11 +51,29 @@ RTE will also continue ongoing R&D initiatives to expand the scope of virtualiza
 
 ## **To go further**
 
+#### Introduction to R#SPACE :
+
+#### R#SPACE Architecture
+
+#### Interoperability and 61850
+
+[Rte Substation Protection Automation and Control Systems IEC 61850 Model](https://assets.rte-france.com/prod/public/2023-05/2023-03-22-controle-commande-postes-rte-modelisation-iec-61850_1.pdf)
+
+#### R#SPACE using SEAPATH
+
+Vidéo LFE Summit 2025 : [What Do Virtualization and SEAPATH Really Change for RTE ? - Bastien Desbos, RTE](https://www.youtube.com/watch?v=gwbbS66J_J4&list=PLKyFf1J9Xkpvgy-yskKC0cJSUFwWjAdSf&index=5)
+
 Vidéo LFE Summit 2024 : [SEAPATH - Current Application and Perspectives - Bastien Desbos & Florent Carli, RTE](https://www.youtube.com/watch?v=vqoi0GUgynA&list=PLKyFf1J9Xkps70S2J_62V3B1qPhli3Al3&index=5)
 
 [LFE Summit 2024 - SEAPATH - Current application and perspectives.pdf](../../assets/162d0d3c-df69-49e4-a486-7f2aa13b25f3.pdf)
 
+#### Deploying Virtual Automatons
+
 Smart Grid Technical Forum 2025 : [SGT 2025 - Deploying Virtual Automatons - RTE Straton and SFL.pdf](../../assets/0f62fbc0-541e-4288-b0ae-ad477b755f32.pdf)
+
+#### Testing R#SPACE
+
+#### Industrial deployment
 
 Article PAC World 2023 : [Towards an Industrial Deployment of Fully Digital PACS at RTE](https://www.pacw.org/towards-an-industrial-deployment-of-fully-digital-pacs-at-rte)
 

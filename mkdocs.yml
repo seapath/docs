@@ -68,6 +68,7 @@ nav:
           - Configure the machines: pages/Getting started/Quick start/Configure the machines.md
           - Deploy first virtual machine: pages/Getting started/Quick start/Deploy your first virtual machine.md
       - SEAPATH-Debian or SEAPATH-Yocto: pages/Getting started/SEAPATH-Debian or SEAPATH-Yocto.md
+      - SEAPATH regarding other hypervisors: pages/Getting started/SEAPATH regarding others hypervisor solutions.md
       - Standalone or cluster setup: pages/Getting started/Standalone or cluster setup.md
   - SEAPATH fundamentals:
       - Overview: pages/SEAPATH fundamentals.md
@@ -126,10 +127,10 @@ nav:
               - Overview: pages/Deploy your application on SEAPATH/Deploying virtual machines/Third party virtual machines.md
               - ABB - SSC600 SW: pages/Deploy your application on SEAPATH/Deploying virtual machines/Third party virtual machines/ABB - SSC600 SW.md
       - Deploying containers:
-          - Overview: pages/Deploy your application on SEAPATH/_Under development_ Deploying containers.md
-          - Containers on SEAPATH: pages/Deploy your application on SEAPATH/_Under development_ Deploying containers/Containers on SEAPATH.md
-          - Containers deployment: pages/Deploy your application on SEAPATH/_Under development_ Deploying containers/Containers deployment.md
-          - Containers management: pages/Deploy your application on SEAPATH/_Under development_ Deploying containers/Containers management.md
+          - Overview: pages/Deploy your application on SEAPATH/Deploying containers.md
+          - Containers on SEAPATH: pages/Deploy your application on SEAPATH/Deploying containers/Containers on SEAPATH.md
+          - Containers deployment: pages/Deploy your application on SEAPATH/Deploying containers/Containers deployment.md
+          - Containers management: pages/Deploy your application on SEAPATH/Deploying containers/Containers management.md
       - Software provider guide: pages/Deploy your application on SEAPATH/Software provider - How to deploy your application.md
   - Advanced configurations:
       - Overview: pages/Advanced configurations.md
@@ -167,6 +168,7 @@ nav:
           - 1.1.0: pages/Project management/Releases/1.1.0.md
           - 1.1.1: pages/Project management/Releases/1.1.1.md
           - 1.2.0: pages/Project management/Releases/1.2.0.md
+          - 2.0.0: pages/Project management/Releases/2.0.0.md
       - Contribute to SEAPATH: pages/Project management/Contribute to SEAPATH.md
       - Maintainers: pages/Project management/Maintainers.md
   - About SEAPATH: pages/LF Energy SEAPATH.md

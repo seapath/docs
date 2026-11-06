@@ -5,7 +5,7 @@
 
 |             |                                                          |
 |:------------|:---------------------------------------------------------|
-| Status      | EARLY ADOPTION                                           |
+| Status      | GRADUATED ([Project Lifecycle](https://tac.lfenergy.org/process/lifecycle.html#graduated)) |
 | Description | Open-source hypervisor for IEC 61850 Digital substations |
 
 Due to the Energy Transition, the use of power transmission and distribution grids is changing. The control architecture of power grids needs to be swiftly adapted to take account of infeed at lower grid levels, higher dynamics in flow patterns, and more distributed controls (both internal controls and grid flexibility services from third parties). In this context, TSOs and DSOs require a new generation of Digital Substation Automation Systems (DSAS) that could provide more complex, dynamic, and adaptative automation functions at grid nodes and edge, as well as enhanced orchestration from central systems, in both flexible and scalable manner. Virtualization is seen as a key innovation in order to fulfill these needs.
@@ -72,7 +72,7 @@ The virtualisation platform uses the following open source tools:
 |:------------------------------------------------------------------------------------------------------------|
 | [LFENERGY Project Page](https://www.lfenergy.org/projects/seapath/)                                         |
 | [Code of the project](https://github.com/seapath)                                                           |
-| [Contribute to SEAPATH](Project%20management/Contribute%20to%20SEAPATH.md)                                  |
+| [How Can I Contribute?](Project%20management/Contribute%20to%20SEAPATH.md)                                  |
 | [Code of Conduct](https://github.com/seapath/.github/blob/main/CONTRIBUTING.md#code-of-conduct)             |
 | [Project Governance](https://github.com/seapath/.github/blob/main/seapath_governance.md)                    |
 | [TSC (Technical Steering Commitee) meeting minutes](https://github.com/seapath/TSC/tree/master/TSC_Minutes) |

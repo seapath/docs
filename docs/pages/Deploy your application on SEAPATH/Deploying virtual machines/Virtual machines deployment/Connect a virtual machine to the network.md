@@ -17,7 +17,7 @@ Data flows from the physical NIC through a hypervisor backend (Linux bridge, OVS
 
 **PCI passthrough (direct access):**
 
-The VM gains exclusive control of an entire physical network card, with data processed directly by the VM and completely bypassing the hypervisor for near-native performance. This method has two significant limitation : The entire physical NIC is dedicated to one VM, thus is unavailable to other VMs or the hypervisor.
+The VM gains exclusive control of an entire physical network card, with data processed directly by the VM and completely bypassing the hypervisor for near-native performance. This method has one significant limitation : The entire physical NIC is dedicated to one VM, thus is unavailable to other VMs or the hypervisor.
 
 **SR-IOV (hardware-assisted virtualization):**
 

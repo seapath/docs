@@ -51,4 +51,4 @@ SEAPATH supports the launch of containers using Docker. For now, containers are 
 > Discussions are on going to replace Docker with Podman in the upcoming 2.0 release. Docker compatibility will be kept thanks to the [podman-docker](https://packages.debian.org/sid/podman-docker) package.
 
 > [!NOTE]
-> High-availability cluster support for containers is in development. You can read more at [[Under development] Deploying containers](_Under%20development_%20Deploying%20containers.md)
+> High-availability cluster support for containers is in development. You can read more at [Deploying containers](Deploying%20containers.md)

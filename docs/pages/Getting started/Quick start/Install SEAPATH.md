@@ -14,13 +14,15 @@ The installation process is done though a live environment, booted from a USB ke
 
 Get the release of the installer, with SEAPATH images embedded inside.
 
-|                                                                                                         |                                                                                         |
-|:--------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------|
-| version 1.2.1 (latest) <br/> SHA256: `31375dc287084d47e83e5774373387d44c446ecedcddecf395553382852c39ee` | <https://drive.google.com/file/d/1hD5b0kkNdOq6ryapUAxXnK1G-sWLW6_5/view?usp=drive_link> |
+|                                                                                                                         |                                                                                                                                                                              |
+|:------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Installer with SEAPATH images v2.0.0 <br/> SHA256: `ad4405d99732bd9ce5edd466d96b74b3efaa877c3c63aa75d010d4ccfc2f59c3`   | [seapath-live-installer-v2.0.0-seapath-images-v2.0.0.iso.zip](https://releases.seapath.org/builds/v2.0.0/seapath-live-installer-v2.0.0-seapath-images-v2.0.0.iso.zip)       |
+| Installer with SEAPATH images v1.2.1 <br/> SHA256: `b7253125108520f305e07ed44a8a05b9c211a0ed187bebb05911e9378c4778a5`   | [seapath-live-installer-1.2.2-seapath-images-1.2.1.iso.zip](https://releases.seapath.org/seapath-installer-bundled/seapath-live-installer-1.2.2-seapath-images-1.2.1.iso.zip) |
+| Installer with SEAPATH images v1.2.0 <br/> SHA256: `f37744dfd4d0f3ff6a717b4c10aeab7420e2ecda8285be257dcb7520d66617d4`   | [seapath-live-installer-1.2.1-seapath-images-1.2.0.iso.zip](https://releases.seapath.org/seapath-installer-bundled/seapath-live-installer-1.2.1-seapath-images-1.2.0.iso.zip) |
 
 ## Flash the installer
 
-Flash the downloaded file on a USB key
+Unzip the file and flash the .iso on a USB key
 
 This can be done with
 
@@ -62,10 +64,10 @@ If you encounter an issue on the use installer, you can raise an issue of the fo
 
 > [!NOTE]
 > All of your SEAPATH machines must be flashed with the installer.  
-> If you are setting up a cluster, repeat [Install SEAPATH](Install%20SEAPATH.md) on each hypervisor.
+> If you are setting up a cluster, repeat [Use the installer](#use-the-installer) on each hypervisor.
 
 Once your machine(s) is flashed, you shall continue the configuration by following the next pages of the Quick start
 
 - [Wire and connect to the machines](Wire%20and%20connect%20to%20the%20machines.md)
-- [Wire and connect to the machines](Wire%20and%20connect%20to%20the%20machines.md)
+- [Configure the machines](Configure%20the%20machines.md)
 - [Deploy your first virtual machine](Deploy%20your%20first%20virtual%20machine.md)
