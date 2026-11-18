@@ -5,6 +5,8 @@
 
 The [vm\_manager](https://github.com/seapath/vm_manager) tool is a high-level interface of pacemaker and Ceph to manage the VM like a resource.
 
+For the full CLI and Python API reference, see [vm_manager Sphinx documentation](../../../_generated/upstream/vm-manager/sphinx-documentation.md).
+
 Deploying a virtual machine on a SEAPATH cluster requires to handle many elements: ceph, qemu, libvirt, corosync. vm\_manager was created as a wrapper around these components.
 
 > [!IMPORTANT]

@@ -78,10 +78,17 @@ $RECYCLE.BIN/
 # MkDocs build directory
 site/
 
+# Generated documentation synced from upstream repositories
+docs/_generated/
+
 # Python virtual environments
 .venv/
 env/
 venv/
 ENV/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows

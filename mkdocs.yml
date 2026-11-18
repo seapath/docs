@@ -18,6 +18,13 @@ theme:
 plugins:
   - search
 
+hooks:
+  - scripts/mkdocs_nav.py
+
+validation:
+  nav:
+    omitted_files: ignore
+
 markdown_extensions:
   - admonition
   - attr_list
@@ -157,6 +164,13 @@ nav:
       - "RTE - VIP'R R&D Project": pages/Who is using SEAPATH _/RTE _ VIP'R R&D Project - VIrtual PAC Rte.md
       - "National Grid & GE Vernova": pages/Who is using SEAPATH _/National Grid & GE Vernova _ Deploying a Virtual IED on SEAPATH.md
       - EcoPhi on SEAPATH: pages/Who is using SEAPATH _/EcoPhi on SEAPATH_ Virtualizing Substation Monitoring and Analytics for Grid Efficiency and Reliability.md
+  - vm_manager:
+      - Sphinx documentation: _generated/upstream/vm-manager/sphinx-documentation.md
+  - Ansible Galaxy collection:
+      - Collection overview: _generated/upstream/ansible/galaxy-reference.md
+      - Inventory examples: _generated/upstream/ansible/inventories.md
+      - Roles: _generated/upstream/ansible/roles/index.md
+      - cluster_vm module: _generated/upstream/ansible/cluster-vm-module.md
   - Project management:
       - Overview: pages/Project management.md
       - Roadmap:
